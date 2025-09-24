@@ -12,7 +12,7 @@ steps:
           health_check_interval: 15
           health_check_timeout: 120
           notifications:
-            slack_channel: "#deployments"
+            slack_channel: "buildkite#ola-testing"
             email: "michael.omoge@buildkite.com"
 
   - label: "💥 Step 2: Deploy Broken Version (Auto-Rollback Test)"
@@ -25,7 +25,7 @@ steps:
           health_check_interval: 15
           health_check_timeout: 60
           notifications:
-            slack_channel: "#deployments"
+            slack_channel: "buildkite#ola-testing"
             email: "michael.omoge@buildkite.com"
 
   - label: "🚫 Step 3: Deploy Broken Version (No Auto-Rollback)"
@@ -39,7 +39,7 @@ steps:
           log_lines: 1000
           upload_artifacts: true
           notifications:
-            slack_channel: "#deployments"
+            slack_channel: "buildkite#ola-testing"
             email: "michael.omoge@buildkite.com"
 
   - label: "🔄 Step 4: Manual Rollback"
@@ -53,5 +53,5 @@ steps:
           log_lines: 1000
           upload_artifacts: true
           notifications:
-            slack_channel: "#deployments"
+            slack_channel: "buildkite#ola-testing"
             email: "michael.omoge@buildkite.com"
