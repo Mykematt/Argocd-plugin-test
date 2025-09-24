@@ -1,0 +1,57 @@
+agents:
+  queue: kubernetes
+
+steps:
+  - label: "🚀 Step 1: Deploy Baseline (Working Version)"
+    plugins:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
+          app: "test-nginx-app"
+          mode: "deploy"
+          timeout: 120
+          health_check: true
+          health_check_interval: 15
+          health_check_timeout: 120
+          notifications:
+            slack_channel: "#deployments"
+            email: "michael.omoge@buildkite.com"
+
+  - label: "💥 Step 2: Deploy Broken Version (Auto-Rollback Test)"
+    plugins:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
+          app: "test-nginx-app-broken"
+          mode: "deploy"
+          timeout: 120
+          health_check: true
+          health_check_interval: 15
+          health_check_timeout: 60
+          notifications:
+            slack_channel: "#deployments"
+            email: "michael.omoge@buildkite.com"
+
+  - label: "🚫 Step 3: Deploy Broken Version (No Auto-Rollback)"
+    plugins:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
+          app: "test-nginx-app-broken"
+          mode: "deploy"
+          timeout: 60
+          health_check: false  # Disabled - no auto-rollback
+          collect_logs: true
+          log_lines: 1000
+          upload_artifacts: true
+          notifications:
+            slack_channel: "#deployments"
+            email: "michael.omoge@buildkite.com"
+
+  - label: "🔄 Step 4: Manual Rollback"
+    plugins:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
+          app: "test-nginx-app-broken"
+          mode: "rollback"
+          rollback_mode: "manual"
+          timeout: 120
+          collect_logs: true
+          log_lines: 1000
+          upload_artifacts: true
+          notifications:
+            slack_channel: "#deployments"
+            email: "michael.omoge@buildkite.com"
