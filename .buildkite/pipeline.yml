@@ -1,27 +1,6 @@
 steps:
-  - label: "🚀 Step 1: Deploy Baseline (Working Version)"
-    key: "deploy-baseline"
-    agents:
-      queue: kubernetes
-    plugins:
-      - secrets#v1.0.0:
-          variables:
-            ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
-          app: "test-nginx-app"
-          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
-          argocd_username: "admin"
-          mode: "deploy"
-          timeout: 120
-          health_check: true
-          health_check_interval: 15
-          health_check_timeout: 120
-          notifications:
-            slack_channel: "buildkite#ola-testing"
-
-  - label: "💥 Step 2: Deploy Broken Version (Auto-Rollback Test)"
+  - label: "💥 Step 1: Deploy Broken Version (Auto-Rollback Test)"
     key: "deploy-broken-auto-rollback"
-    depends_on: "deploy-baseline"
     agents:
       queue: kubernetes
     plugins:
@@ -39,8 +18,9 @@ steps:
           health_check_timeout: 60
           notifications:
             email: "michael.omoge@buildkite.com"
+            slack_channel: "buildkite#ola-testing"
 
-  - label: "🚫 Step 3: Deploy Broken Version (No Auto-Rollback)"
+  - label: "🚫 Step 2: Deploy Broken Version (No Auto-Rollback)"
     key: "deploy-broken-no-rollback"
     depends_on: "deploy-broken-auto-rollback"
     agents:
@@ -59,7 +39,7 @@ steps:
           notifications:
             webhook_url: "https://webhook.site/#!/view/c494b825-a554-4a11-87fe-7f596f06e1c7"
 
-  - label: "🔄 Step 4: Manual Rollback"
+  - label: "🔄 Step 3: Manual Rollback"
     key: "manual-rollback"
     depends_on: "deploy-broken-no-rollback"
     agents:
