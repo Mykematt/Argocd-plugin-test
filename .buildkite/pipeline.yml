@@ -1,21 +1,12 @@
 steps:
-  # Fetch secrets once for entire pipeline
-  - label: "🔐 Fetch ArgoCD Secrets"
-    key: "fetch-argocd-secrets"
-    command: "echo '✅ ArgoCD secrets fetched for pipeline'"
+  - label: "🚀 Step 1: Deploy Baseline (Working Version)"
+    key: "deploy-baseline"
     agents:
-      queue: mac
+      queue: kubernetes
     plugins:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-
-  - label: "🚀 Step 1: Deploy Baseline (Working Version)"
-    key: "deploy-baseline"
-    depends_on: "fetch-argocd-secrets"
-    agents:
-      queue: kubernetes
-    plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app"
           argocd_server: "https://localhost:8080"
@@ -34,6 +25,9 @@ steps:
     agents:
       queue: kubernetes
     plugins:
+      - secrets#v1.0.0:
+          variables:
+            ARGOCD_PASSWORD: argocd_password
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
           argocd_server: "https://localhost:8080"
@@ -52,6 +46,9 @@ steps:
     agents:
       queue: kubernetes
     plugins:
+      - secrets#v1.0.0:
+          variables:
+            ARGOCD_PASSWORD: argocd_password
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
           argocd_server: "https://localhost:8080"
@@ -68,6 +65,9 @@ steps:
     agents:
       queue: kubernetes
     plugins:
+      - secrets#v1.0.0:
+          variables:
+            ARGOCD_PASSWORD: argocd_password
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
           argocd_server: "https://localhost:8080"
