@@ -6,6 +6,9 @@ steps:
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app"
+          argocd_server: "https://localhost:8080"
+          argocd_username: "admin"
+          argocd_password: "bk-secrets:argocd_password"
           mode: "deploy"
           timeout: 120
           health_check: true
@@ -19,6 +22,9 @@ steps:
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
+          argocd_server: "https://localhost:8080"
+          argocd_username: "admin"
+          argocd_password: "bk-secrets:argocd_password"
           mode: "deploy"
           timeout: 120
           health_check: true
@@ -32,6 +38,9 @@ steps:
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
+          argocd_server: "https://localhost:8080"
+          argocd_username: "admin"
+          argocd_password: "bk-secrets:argocd_password"
           mode: "deploy"
           timeout: 60
           health_check: false  # Disabled - no auto-rollback
@@ -46,6 +55,9 @@ steps:
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
+          argocd_server: "https://localhost:8080"
+          argocd_username: "admin"
+          argocd_password: "bk-secrets:argocd_password"
           mode: "rollback"
           rollback_mode: "manual"
           timeout: 120
