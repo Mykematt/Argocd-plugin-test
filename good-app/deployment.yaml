@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:broken-version-that-does-not-exist
+        image: nginx:1.25
         ports:
         - containerPort: 80
         resources:
