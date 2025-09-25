@@ -8,7 +8,7 @@ steps:
           variables:
             ARGOCD_PASSWORD: argocd_password
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
-          app: "test-nginx-app-broken"
+          app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "deploy"
@@ -17,8 +17,8 @@ steps:
           health_check_interval: 15
           health_check_timeout: 60
           notifications:
-            email: "michael.omoge@buildkite.com"
             slack_channel: "buildkite#ola-testing"
+            email: "michael.omoge@buildkite.com"
 
   - label: "🚫 Step 2: Deploy Broken Version (No Auto-Rollback)"
     key: "deploy-broken-no-rollback"
@@ -30,11 +30,11 @@ steps:
           variables:
             ARGOCD_PASSWORD: argocd_password
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
-          app: "test-nginx-app-broken"
+          app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "deploy"
-          timeout: 60
+          timeout: 120
           health_check: false  # Disabled - no auto-rollback
           notifications:
             webhook_url: "https://webhook.site/#!/view/c494b825-a554-4a11-87fe-7f596f06e1c7"
@@ -49,7 +49,7 @@ steps:
           variables:
             ARGOCD_PASSWORD: argocd_password
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
-          app: "test-nginx-app-broken"
+          app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "rollback"
