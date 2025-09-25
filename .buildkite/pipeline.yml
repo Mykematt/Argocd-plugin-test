@@ -8,7 +8,7 @@ steps:
     command: "echo '✅ ArgoCD secrets fetched for pipeline'"
     plugins:
       - secrets#v1.0.0:
-          env:
+          variables:
             ARGOCD_PASSWORD: argocd_password
 
   - label: "🚀 Step 1: Deploy Baseline (Working Version)"
