@@ -15,7 +15,7 @@ steps:
           timeout: 120
           health_check: true
           health_check_interval: 15
-          health_check_timeout: 60
+          health_check_timeout: 120
           notifications:
             slack_channel: "buildkite#ola-testing"
             email: "michael.omoge@buildkite.com"

@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Mykematt/Argocd-plugin-test.git
-    targetRevision: 39c5fd662918e0d6343ca1efd5aa4459a0b1b4ff
+    targetRevision: HEAD
     path: good-app
   destination:
     server: https://kubernetes.default.svc
