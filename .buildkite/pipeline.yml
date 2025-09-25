@@ -7,7 +7,7 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#5b8eb0e:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#9d243f2:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
@@ -18,7 +18,6 @@ steps:
           health_check_timeout: 300
           notifications:
             slack_channel: "U08SQPXLH26"
-            email: "michael.omoge@buildkite.com"
 
   # - label: "🚫 Step 2: Deploy Broken Version (No Auto-Rollback)"
   #   key: "deploy-broken-no-rollback"
