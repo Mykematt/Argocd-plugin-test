@@ -1,24 +1,23 @@
-agents:
-  queue: kubernetes
-
 steps:
   # Fetch secrets once for entire pipeline
   - label: "🔐 Fetch ArgoCD Secrets"
     key: "fetch-argocd-secrets"
     command: "echo '✅ ArgoCD secrets fetched for pipeline'"
+    agents:
+      queue: mac
     plugins:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
 
   - label: "🚀 Step 1: Deploy Baseline (Working Version)"
-    depends_on: "fetch-argocd-secrets"
+    agents:
+      queue: kubernetes
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app"
           argocd_server: "https://localhost:8080"
           argocd_username: "admin"
-          # argocd_password now comes from environment variable
           mode: "deploy"
           timeout: 120
           health_check: true
@@ -30,12 +29,13 @@ steps:
 
   - label: "💥 Step 2: Deploy Broken Version (Auto-Rollback Test)"
     depends_on: "fetch-argocd-secrets"
+    agents:
+      queue: kubernetes
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
           argocd_server: "https://localhost:8080"
           argocd_username: "admin"
-          # argocd_password now comes from environment variable
           mode: "deploy"
           timeout: 120
           health_check: true
@@ -47,12 +47,13 @@ steps:
 
   - label: "🚫 Step 3: Deploy Broken Version (No Auto-Rollback)"
     depends_on: "fetch-argocd-secrets"
+    agents:
+      queue: kubernetes
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
           argocd_server: "https://localhost:8080"
           argocd_username: "admin"
-          # argocd_password now comes from environment variable
           mode: "deploy"
           timeout: 60
           health_check: false  # Disabled - no auto-rollback
@@ -65,12 +66,13 @@ steps:
 
   - label: "🔄 Step 4: Manual Rollback"
     depends_on: "fetch-argocd-secrets"
+    agents:
+      queue: kubernetes
     plugins:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#main:
           app: "test-nginx-app-broken"
           argocd_server: "https://localhost:8080"
           argocd_username: "admin"
-          # argocd_password now comes from environment variable
           mode: "rollback"
           rollback_mode: "manual"
           timeout: 120
