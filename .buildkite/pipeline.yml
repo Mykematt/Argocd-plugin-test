@@ -12,7 +12,7 @@ steps:
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "deploy"
-          timeout: 120
+          timeout: 600
           health_check: true
           health_check_interval: 30
           health_check_timeout: 300
