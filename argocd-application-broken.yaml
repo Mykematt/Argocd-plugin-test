@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: file:///Users/olabuildkite/CascadeProjects/argocd-test
+    repoURL: https://github.com/Mykematt/Argocd-plugin-test.git
     targetRevision: HEAD
     path: bad-app
   destination:
