@@ -1,81 +1,81 @@
 steps:
-  # - label: "💥 Step 1: Deploy Broken Version (Auto-Rollback Test)"
-  #   key: "deploy-broken-auto-rollback"
+  - label: "💥 Step 1: Deploy Broken Version (Auto-Rollback Test)"
+    key: "deploy-broken-auto-rollback"
+    agents:
+      queue: kubernetes
+    plugins:
+      - secrets#v1.0.0:
+          variables:
+            ARGOCD_PASSWORD: argocd_password
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#90b9a48:
+          app: "test-nginx-app"
+          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
+          argocd_username: "admin"
+          mode: "deploy"
+          timeout: 600
+          health_check: true
+          health_check_interval: 30
+          health_check_timeout: 300
+          notifications:
+            slack_channel: "U08SQPXLH26"
+
+  # - label: "🚫 Step 2: Deploy Broken Version (No Auto-Rollback)"
+  #   key: "deploy-broken-no-rollback"
+  #   # depends_on: "deploy-broken-auto-rollback"
   #   agents:
   #     queue: kubernetes
   #   plugins:
   #     - secrets#v1.0.0:
   #         variables:
   #           ARGOCD_PASSWORD: argocd_password
-  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#90b9a48:
+  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#8731d77:
   #         app: "test-nginx-app"
   #         argocd_server: "argocd-server.argocd.svc.cluster.local:443"
   #         argocd_username: "admin"
   #         mode: "deploy"
+  #         rollback_mode: "manual"  # Single health check + manual decision
+  #         timeout: 120
+  #         notifications:
+  #           webhook_url: "https://webhook.site/#!/view/c494b825-a554-4a11-87fe-7f596f06e1c7"
+
+  # - label: "🔄 Step 3: Manual Rollback"
+  #   key: "manual-rollback"
+  #   depends_on: "deploy-broken-no-rollback"
+  #   agents:
+  #     queue: kubernetes
+  #   plugins:
+  #     - secrets#v1.0.0:
+  #         variables:
+  #           ARGOCD_PASSWORD: argocd_password
+  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#8731d77:
+  #         app: "test-nginx-app"
+  #         argocd_server: "argocd-server.argocd.svc.cluster.local:443"
+  #         argocd_username: "admin"
+  #         mode: "rollback"
+  #         rollback_mode: "manual"  # Required for rollback mode
   #         timeout: 600
-  #         health_check: true
-  #         health_check_interval: 30
-  #         health_check_timeout: 300
+  #         collect_logs: true
+  #         log_lines: 1000
+  #         upload_artifacts: true
   #         notifications:
   #           slack_channel: "U08SQPXLH26"
+  #           pagerduty_integration_key: "3d9447131fa34d03d0816fc7ed069157"
 
-  - label: "🚫 Step 2: Deploy Broken Version (No Auto-Rollback)"
-    key: "deploy-broken-no-rollback"
-    # depends_on: "deploy-broken-auto-rollback"
-    agents:
-      queue: kubernetes
-    plugins:
-      - secrets#v1.0.0:
-          variables:
-            ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8731d77:
-          app: "test-nginx-app"
-          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
-          argocd_username: "admin"
-          mode: "deploy"
-          rollback_mode: "manual"  # Single health check + manual decision
-          timeout: 120
-          notifications:
-            webhook_url: "https://webhook.site/#!/view/c494b825-a554-4a11-87fe-7f596f06e1c7"
-
-  - label: "🔄 Step 3: Manual Rollback"
-    key: "manual-rollback"
-    depends_on: "deploy-broken-no-rollback"
-    agents:
-      queue: kubernetes
-    plugins:
-      - secrets#v1.0.0:
-          variables:
-            ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8731d77:
-          app: "test-nginx-app"
-          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
-          argocd_username: "admin"
-          mode: "rollback"
-          rollback_mode: "manual"  # Required for rollback mode
-          timeout: 600
-          collect_logs: true
-          log_lines: 1000
-          upload_artifacts: true
-          notifications:
-            slack_channel: "U08SQPXLH26"
-            pagerduty_integration_key: "3d9447131fa34d03d0816fc7ed069157"
-
-  - label: "❌ Step 4: Deploy Broken Version (No Rollback)"
-    key: "deploy-broken-no-rollback-none"
-    depends_on: "manual-rollback"
-    agents:
-      queue: kubernetes
-    plugins:
-      - secrets#v1.0.0:
-          variables:
-            ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8731d77:
-          app: "test-nginx-app"
-          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
-          argocd_username: "admin"
-          mode: "deploy"
-          rollback_mode: "none"  # Accept failure, no rollback options
-          timeout: 120
-          notifications:
-            slack_channel: "U08SQPXLH26"
+  # - label: "❌ Step 4: Deploy Broken Version (No Rollback)"
+  #   key: "deploy-broken-no-rollback-none"
+  #   depends_on: "manual-rollback"
+  #   agents:
+  #     queue: kubernetes
+  #   plugins:
+  #     - secrets#v1.0.0:
+  #         variables:
+  #           ARGOCD_PASSWORD: argocd_password
+  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#8731d77:
+  #         app: "test-nginx-app"
+  #         argocd_server: "argocd-server.argocd.svc.cluster.local:443"
+  #         argocd_username: "admin"
+  #         mode: "deploy"
+  #         rollback_mode: "none"  # Accept failure, no rollback options
+  #         timeout: 120
+  #         notifications:
+  #           slack_channel: "U08SQPXLH26"
