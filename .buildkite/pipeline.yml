@@ -27,7 +27,7 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#7fff669:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#4b6258a:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
@@ -49,7 +49,7 @@ steps:
   #     - secrets#v1.0.0:
   #         variables:
   #           ARGOCD_PASSWORD: argocd_password
-  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#4b5e5c0:
+  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#7fff669:
   #         app: "test-nginx-app"
   #         argocd_server: "argocd-server.argocd.svc.cluster.local:443"
   #         argocd_username: "admin"
