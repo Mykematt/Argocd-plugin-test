@@ -34,6 +34,9 @@ steps:
           mode: "deploy"
           rollback_mode: "manual"  
           timeout: 120
+          collect_logs: true
+          log_lines: 1000
+          upload_artifacts: true
           notifications:
             webhook_url: "https://webhook.site/#!/view/c494b825-a554-4a11-87fe-7f596f06e1c7"
 
