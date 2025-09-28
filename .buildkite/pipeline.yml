@@ -1,26 +1,6 @@
 steps:
-  - label: "💥 Step 1: Deploy Broken Version"
-    key: "deploy-broken-auto-rollback"
-    agents:
-      queue: kubernetes
-    plugins:
-      - secrets#v1.0.0:
-          variables:
-            ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#9e5279d:
-          app: "test-nginx-app"
-          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
-          argocd_username: "admin"
-          mode: "deploy"
-          timeout: 600
-          health_check: true
-          health_check_interval: 30
-          health_check_timeout: 300
-          notifications:
-            slack_channel: "U08SQPXLH26"
-
-  # - label: "🚫 Step 2: Deploy Broken Version (No Auto-Rollback)"
-  #   key: "deploy-broken-no-rollback"
+  # - label: "💥 Step 1: Deploy Broken Version"
+  #   key: "deploy-broken-auto-rollback"
   #   agents:
   #     queue: kubernetes
   #   plugins:
@@ -32,11 +12,31 @@ steps:
   #         argocd_server: "argocd-server.argocd.svc.cluster.local:443"
   #         argocd_username: "admin"
   #         mode: "deploy"
-  #         rollback_mode: "manual"  
-  #         timeout: 120
-  #         collect_logs: true
-  #         log_lines: 1000
-  #         upload_artifacts: true
+  #         timeout: 600
+  #         health_check: true
+  #         health_check_interval: 30
+  #         health_check_timeout: 300
+  #         notifications:
+  #           slack_channel: "U08SQPXLH26"
+
+  - label: "🚫 Step 2: Deploy Broken Version (No Auto-Rollback)"
+    key: "deploy-broken-no-rollback"
+    agents:
+      queue: kubernetes
+    plugins:
+      - secrets#v1.0.0:
+          variables:
+            ARGOCD_PASSWORD: argocd_password
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#9e5279d:
+          app: "test-nginx-app"
+          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
+          argocd_username: "admin"
+          mode: "deploy"
+          rollback_mode: "manual"  
+          timeout: 120
+          collect_logs: true
+          log_lines: 1000
+          upload_artifacts: true
 
   # - label: "🔄 Step 3: Manual Rollback"
   #   key: "manual-rollback"
