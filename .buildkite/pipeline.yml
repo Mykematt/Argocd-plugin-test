@@ -7,7 +7,7 @@ steps:
   #     - secrets#v1.0.0:
   #         variables:
   #           ARGOCD_PASSWORD: argocd_password
-  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#1f11e80:
+  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#e30297b:
   #         app: "test-nginx-app"
   #         argocd_server: "argocd-server.argocd.svc.cluster.local:443"
   #         argocd_username: "admin"
@@ -27,7 +27,7 @@ steps:
   #     - secrets#v1.0.0:
   #         variables:
   #           ARGOCD_PASSWORD: argocd_password
-  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#1f11e80:
+  #     - github.com/Mykematt/argocd-deployment-buildkite-plugin#e30297b:
   #         app: "test-nginx-app"
   #         argocd_server: "argocd-server.argocd.svc.cluster.local:443"
   #         argocd_username: "admin"
@@ -46,13 +46,13 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#1f11e80:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#e30297b:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "rollback"
-          rollback_mode: "manual"  
-          target_revision: "297"
+          rollback_mode: "auto"  
+          target_revision: "303"
           timeout: 600
           collect_logs: true
           log_lines: 1000
