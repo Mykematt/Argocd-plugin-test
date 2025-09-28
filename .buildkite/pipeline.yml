@@ -1,5 +1,5 @@
 steps:
-  - label: "💥 Step 1: Deploy Broken Version (Auto-Rollback Test)"
+  - label: "💥 Step 1: Deploy Broken Version"
     key: "deploy-broken-auto-rollback"
     agents:
       queue: kubernetes
