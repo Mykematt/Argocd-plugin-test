@@ -11,7 +11,7 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#4281d5f:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8a0b344:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
@@ -33,7 +33,7 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#4281d5f:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8a0b344:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
@@ -44,6 +44,9 @@ steps:
           health_check_timeout: 120
           collect_logs: true
           upload_artifacts: true
+
+  - wait: ~
+    continue_on_failure: true
 
   - label: "🤔 Step 3: Deploy Broken + Manual Decision (feat branch)"
     key: "deploy-broken-manual-decision"
@@ -58,7 +61,7 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#4281d5f:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8a0b344:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
@@ -83,7 +86,7 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#4281d5f:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8a0b344:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
@@ -106,13 +109,13 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#4281d5f:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8a0b344:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "rollback"
           rollback_mode: "manual"
-          target_revision: "1"  # Rollback to first deployment (baseline)
+          target_revision: "313"  # Rollback to baseline deployment (SHA f38c904)
           timeout: 300
           collect_logs: true
           upload_artifacts: true
@@ -131,7 +134,7 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#4281d5f:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8a0b344:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
