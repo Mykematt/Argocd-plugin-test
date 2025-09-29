@@ -5,7 +5,7 @@ steps:
       queue: kubernetes
     command: |
       echo "--- Setting ArgoCD app to main branch (good image)"
-      argocd login "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_SERVER" --username "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --insecure
+      argocd login "argocd-server.argocd.svc.cluster.local:443" --username "admin" --password "$ARGOCD_PASSWORD" --insecure
       argocd app set test-nginx-app --revision main
     plugins:
       - secrets#v1.0.0:
@@ -27,7 +27,7 @@ steps:
       queue: kubernetes
     command: |
       echo "--- Setting ArgoCD app to feat branch (broken image)"
-      argocd login "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_SERVER" --username "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --insecure
+      argocd login "argocd-server.argocd.svc.cluster.local:443" --username "admin" --password "$ARGOCD_PASSWORD" --insecure
       argocd app set test-nginx-app --revision feat
     plugins:
       - secrets#v1.0.0:
@@ -55,7 +55,7 @@ steps:
       queue: kubernetes
     command: |
       echo "--- Setting ArgoCD app to feat branch (broken image)"
-      argocd login "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_SERVER" --username "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --insecure
+      argocd login "argocd-server.argocd.svc.cluster.local:443" --username "admin" --password "$ARGOCD_PASSWORD" --insecure
       argocd app set test-nginx-app --revision feat
     plugins:
       - secrets#v1.0.0:
@@ -80,7 +80,7 @@ steps:
       queue: kubernetes
     command: |
       echo "--- Setting ArgoCD app to feat branch (for rollback context)"
-      argocd login "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_SERVER" --username "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --insecure
+      argocd login "argocd-server.argocd.svc.cluster.local:443" --username "admin" --password "$ARGOCD_PASSWORD" --insecure
       argocd app set test-nginx-app --revision feat
     plugins:
       - secrets#v1.0.0:
@@ -103,7 +103,7 @@ steps:
       queue: kubernetes
     command: |
       echo "--- Setting ArgoCD app to feat branch (for rollback context)"
-      argocd login "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_SERVER" --username "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --insecure
+      argocd login "argocd-server.argocd.svc.cluster.local:443" --username "admin" --password "$ARGOCD_PASSWORD" --insecure
       argocd app set test-nginx-app --revision feat
     plugins:
       - secrets#v1.0.0:
@@ -127,7 +127,7 @@ steps:
       queue: kubernetes
     command: |
       echo "--- Setting ArgoCD app to feat branch (broken image)"
-      argocd login "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_SERVER" --username "$BUILDKITE_PLUGIN_ARGOCD_DEPLOYMENT_ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --insecure
+      argocd login "argocd-server.argocd.svc.cluster.local:443" --username "admin" --password "$ARGOCD_PASSWORD" --insecure
       argocd app set test-nginx-app --revision feat
       echo "--- This step will deploy broken version and user should select 'Accept Failure'"
     plugins:
