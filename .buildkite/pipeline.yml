@@ -1,6 +1,6 @@
 steps:
-  - label: "📦 Step 1: Deploy Good Baseline (main branch)"
-    key: "deploy-good-baseline"
+  - label: "🚨 Step 2: Deploy Broken + Auto Rollback"
+    key: "deploy-broken-auto-rollback"
     agents:
       queue: kubernetes
     plugins:
@@ -13,5 +13,7 @@ steps:
           argocd_username: "admin"
           mode: "deploy"
           timeout: 300
+          health_check: true
+          health_check_timeout: 120
           collect_logs: true
           upload_artifacts: true
