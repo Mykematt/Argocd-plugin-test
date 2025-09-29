@@ -1,6 +1,6 @@
 steps:
-  - label: "🚨 Step 2: Deploy Broken + Auto Rollback"
-    key: "deploy-broken-auto-rollback"
+  - label: "🤔 Step 3: Deploy Broken + Manual Decision"
+    key: "deploy-broken-manual-decision"
     agents:
       queue: kubernetes
     plugins:
@@ -12,6 +12,7 @@ steps:
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "deploy"
+          rollback_mode: "manual"
           timeout: 300
           health_check: true
           health_check_timeout: 120
