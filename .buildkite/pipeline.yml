@@ -1,6 +1,6 @@
 steps:
-  - label: "🔧 Step 4: Auto Rollback Test"
-    key: "auto-rollback-test"
+  - label: "🛑 Step 5: Manual Rollback Test"
+    key: "manual-rollback-test"
     agents:
       queue: kubernetes
     plugins:
@@ -12,7 +12,8 @@ steps:
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "rollback"
-          rollback_mode: "auto"
+          rollback_mode: "manual"
+          target_revision: "428"
           collect_logs: true
           upload_artifacts: true
           log_lines: 2000
