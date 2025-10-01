@@ -1,8 +1,8 @@
 steps:
-  - label: "🔧 Deploy Mode + Manual Rollback (Accept Failure)"
-    key: "deploy-manual-rollback-test"
+  - label: "🍎 Step 1: Deploy Test (macOS Agent)"
+    key: "macos-deploy-test"
     agents:
-      queue: kubernetes
+      queue: mac
     plugins:
       - secrets#v1.0.0:
           variables:
@@ -11,9 +11,8 @@ steps:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
-          mode: "rollback"
-          rollback_mode: "manual"
-          target_revision: "428"
+          mode: "deploy"
+          rollback_mode: "auto"
           health_check_interval: 30
           health_check_timeout: 300
           collect_logs: true
