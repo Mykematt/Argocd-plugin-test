@@ -1,13 +1,13 @@
 steps:
-  - label: "✅ Step 1: Deploy Good Version (baseline)"
-    key: "deploy-good-baseline"
+  - label: "🚫 Step 2: Deploy Broken Version (auto rollback)"
+    key: "deploy-broken-auto-rollback"
     agents:
       queue: kubernetes
     plugins:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#7147a34:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#91f7cdd:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
