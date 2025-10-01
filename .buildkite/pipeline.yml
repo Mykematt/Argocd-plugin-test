@@ -1,8 +1,8 @@
 steps:
-  - label: "🍎 Step 1: Deploy Test (Linux Agent)"
-    key: "linux-deploy-test"
+  - label: "🍎 Step 1: Deploy Test (Elastic CI Stack Agent)"
+    key: "elastic-ci-stack-deploy-test"
     agents:
-      queue: linux
+      queue: default
     plugins:
       - secrets#v1.0.0:
           variables:
