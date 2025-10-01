@@ -1,6 +1,6 @@
 steps:
-  - label: "🚫 Step 2: Deploy Broken Version (auto rollback)"
-    key: "deploy-broken-auto-rollback"
+  - label: "✅ Step 1: Deploy Good Version (baseline)"
+    key: "deploy-good-baseline"
     agents:
       queue: kubernetes
     plugins:
