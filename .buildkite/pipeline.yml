@@ -1,6 +1,6 @@
 steps:
-  - label: "🍎 Step 1a: Deploy Test (macOS Agent)"
-    key: "macos-deploy-test"
+  - label: "🍎 Step 2: Auto Rollback Test (macOS Agent)"
+    key: "macos-auto-rollback-test"
     agents:
       queue: mac
     plugins:
@@ -10,30 +10,6 @@ steps:
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#84fda8f:
           app: "test-nginx-app"
           argocd_server: "a84b3c9fe815e4047a19a04966cc5ff1-2002834036.us-east-1.elb.amazonaws.com:443"
-          argocd_username: "admin"
-          mode: "deploy"
-          rollback_mode: "auto"
-          health_check_interval: 30
-          health_check_timeout: 300
-          collect_logs: true
-          upload_artifacts: true
-          log_lines: 2000
-          notifications:
-            slack_channel: "U08SQPXLH26"
-
-  - label: "☸️ Step 1b: Deploy Test (Kubernetes Agent)"
-    key: "k8s-deploy-test"
-    depends_on: 
-      - "macos-deploy-test"
-    agents:
-      queue: kubernetes
-    plugins:
-      - secrets#v1.0.0:
-          variables:
-            ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#84fda8f:
-          app: "test-nginx-app"
-          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "deploy"
           rollback_mode: "auto"
