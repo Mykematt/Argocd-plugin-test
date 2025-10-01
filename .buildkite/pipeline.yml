@@ -9,7 +9,7 @@ steps:
             ARGOCD_PASSWORD: argocd_password
       - github.com/Mykematt/argocd-deployment-buildkite-plugin#00ec20a:
           app: "test-nginx-app"
-          argocd_server: "argocd-server.argocd.svc.cluster.local:443"
+          argocd_server: "a84b3c9fe815e4047a19a04966cc5ff1-2002834036.us-east-1.elb.amazonaws.com:443"
           argocd_username: "admin"
           mode: "deploy"
           rollback_mode: "auto"
