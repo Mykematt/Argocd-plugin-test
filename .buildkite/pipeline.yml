@@ -1,6 +1,6 @@
 steps:
-  - label: "✅ Step 1: Deploy Good Version (fresh baseline)"
-    key: "deploy-good-baseline"
+  - label: "🛑 Step 3: Deploy Broken Version (manual rollback)"
+    key: "deploy-broken-manual-rollback"
     agents:
       queue: kubernetes
     plugins:
@@ -12,7 +12,7 @@ steps:
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
           mode: "deploy"
-          rollback_mode: "auto"
+          rollback_mode: "manual"
           timeout: 600
           health_check_interval: 30
           health_check_timeout: 300
