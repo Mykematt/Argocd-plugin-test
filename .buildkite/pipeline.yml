@@ -11,8 +11,9 @@ steps:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
-          mode: "deploy"
+          mode: "rollback"
           rollback_mode: "manual"
+          target_revision: "428"
           health_check_interval: 30
           health_check_timeout: 300
           collect_logs: true
