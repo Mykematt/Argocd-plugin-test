@@ -1,20 +1,18 @@
 steps:
-  - label: "🔧 Step 4: Deploy Broken Version (health_check: false)"
-    key: "deploy-broken-no-health-check"
+  - label: "✅ Step 1: Deploy Good Version (establish baseline)"
+    key: "deploy-good-baseline"
     agents:
       queue: kubernetes
     plugins:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#8c43d97:
+      - github.com/Mykematt/argocd-deployment-buildkite-plugin#aa5fef6:
           app: "test-nginx-app"
           argocd_server: "argocd-server.argocd.svc.cluster.local:443"
           argocd_username: "admin"
-          mode: "rollback"
-          rollback_mode: "auto"
-          collect_logs: true
-          upload_artifacts: true
-          log_lines: 2000
+          mode: "deploy"
+          health_check_interval: 30
+          health_check_timeout: 300
           notifications:
             slack_channel: "U08SQPXLH26"
