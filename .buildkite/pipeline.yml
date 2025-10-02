@@ -2,7 +2,7 @@ steps:
   - label: "🍎 Step 1: Deploy Test (Elastic CI Stack Agent)"
     key: "elastic-ci-stack-deploy-test"
     agents:
-      queue: default
+      queue: mac
     plugins:
       - secrets#v1.0.0:
           variables:
