@@ -2,12 +2,12 @@ steps:
   - label: "🍎 Step 1: Deploy Test (Elastic CI Stack Agent)"
     key: "elastic-ci-stack-deploy-test"
     agents:
-      queue: mac
+      queue: default
     plugins:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - argocd_deployment#feature/plugin-implementation:
+      - argocd-deployment#feature/plugin-implementation:
           app: "test-nginx-app"
           argocd_server: "a84b3c9fe815e4047a19a04966cc5ff1-2002834036.us-east-1.elb.amazonaws.com:443"
           argocd_username: "admin"
