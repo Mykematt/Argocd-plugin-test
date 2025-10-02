@@ -7,15 +7,13 @@ steps:
       - secrets#v1.0.0:
           variables:
             ARGOCD_PASSWORD: argocd_password
-      - github.com/Mykematt/argocd-deployment-buildkite-plugin#84fda8f:
+      - argocd_deployment#feature/plugin-implementation:
           app: "test-nginx-app"
           argocd_server: "a84b3c9fe815e4047a19a04966cc5ff1-2002834036.us-east-1.elb.amazonaws.com:443"
           argocd_username: "admin"
           mode: "deploy"
+          rollback_mode: "manual"
           health_check_interval: 30
           health_check_timeout: 300
-          collect_logs: true
-          upload_artifacts: true
-          log_lines: 2000
           notifications:
             slack_channel: "U08SQPXLH26"
